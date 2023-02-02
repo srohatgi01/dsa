@@ -13,10 +13,8 @@ class Solution {
         
         for(int i = 0; i < n; i++) {
             if(!visited[adj[node][i]]) {
-                bool hasCycle = dfs(adj, visited, pathvisited, adj[node][i]);
-                if(hasCycle == true) return true;
+                if(dfs(adj, visited, pathvisited, adj[node][i]) == true) return true;
             }
-            
             else if(pathvisited[adj[node][i]]) return true;
         }
         
@@ -33,10 +31,6 @@ class Solution {
                 if(dfs(adj, visited, pathvisited, i) == true) return true;
             }
         }
-        // for(auto i : visited) cout << i << " ";
-        // cout << endl;
-        // for(auto i : pathvisited) cout << i << " ";
-        // cout << endl;
         
         return false;
     }
