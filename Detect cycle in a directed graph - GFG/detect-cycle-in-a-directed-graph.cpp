@@ -4,35 +4,55 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-  private:
-    bool dfs(vector<int> adj[], vector<int> &visited, vector<int> &pathvisited, int node) {
-        visited[node] = 1;
-        pathvisited[node] = 1;
-        
-        int n = adj[node].size();
-        
-        for(int i = 0; i < n; i++) {
-            if(!visited[adj[node][i]]) {
-                if(dfs(adj, visited, pathvisited, adj[node][i]) == true) return true;
-            }
-            else if(pathvisited[adj[node][i]]) return true;
-        }
-        
-        pathvisited[node] = 0;
-        return false;
-    }
   public:
     // Function to detect cycle in a directed graph.
     bool isCyclic(int V, vector<int> adj[]) {
-        vector<int> visited(V, 0), pathvisited(V, 0);
+        // here we will do topological sorting
+        // using kahn's algorithm
         
+        vector<int> inDegree(V, 0);
+        queue<int> q;
+        int n = 0, res = 0;
+        
+        //calculate all the indegree of the nodes
         for(int i = 0; i < V; i++) {
-            if(!visited[i]) {
-                if(dfs(adj, visited, pathvisited, i) == true) return true;
+            n = adj[i].size();
+            for(int j = 0; j < n; j++) {
+                inDegree[adj[i][j]]++;
             }
         }
         
-        return false;
+        //check all the nodes with 0 as indegree and push in the queue
+        for(int i = 0; i < V; i++) {
+            if(inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+            res++;
+            
+            for(auto it: adj[node]) {
+                inDegree[it]--;
+                if(inDegree[it] == 0) {
+                    q.push(it);
+                }
+            }
+            
+           
+            
+        }
+        
+        if(res == V) {
+                return false;
+            }
+        else {
+           return true;
+        }
+        
+        
     }
 };
 
