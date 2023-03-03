@@ -27,7 +27,7 @@ class Solution {
             if(stop > K) continue;
             
             for(auto it: adj[node]) {
-                if(dis + it.second < dist[it.first] && stop <= K) {
+                if(dis + it.second < dist[it.first]) {
                     dist[it.first] = dis + it.second;
                     q.push({stop+1, {it.first, it.second + dis}});
                 }
