@@ -9,7 +9,7 @@ using namespace std;
     Input: arr=[10, 8,4,2,30,15,2], target=20
     Output: {0,2}
 
-    Answer: o(2n) = o(n)
+    Answer: TC = O(n)
  */
 int main() {
     // input
